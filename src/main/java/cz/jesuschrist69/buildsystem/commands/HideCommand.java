@@ -17,12 +17,30 @@ public class HideCommand implements BuildSystemCommandExecutor {
 
     private BuildSystem plugin;
 
+    /**
+     * "This function is called when the plugin is enabled, and it sets the command executor for the command 'hide' to this
+     * class."
+     *
+     * The @NotNull annotation is a Java annotation that tells the compiler that the BuildSystem parameter will never be
+     * null
+     *
+     * @param plugin The BuildSystem plugin instance.
+     */
     @Override
     public void init(@NotNull BuildSystem plugin) {
         this.plugin = plugin;
         plugin.getCommand("hide").setExecutor(this);
     }
 
+    /**
+     * If the player has permission, toggle the hidden state of the world they're in
+     *
+     * @param cs The CommandSender who executed the command.
+     * @param cmd The command that was executed.
+     * @param label The command label.
+     * @param args The arguments that the player typed in.
+     * @return A boolean
+     */
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
         if (cs instanceof Player) {

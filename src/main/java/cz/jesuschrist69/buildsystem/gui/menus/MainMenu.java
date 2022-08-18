@@ -41,6 +41,12 @@ public final class MainMenu {
         throw new BuildSystemException("Tried to instantiate utility class.");
     }
 
+    /**
+     * It creates a GUI with a bunch of items in it
+     *
+     * @param player The player who is opening the GUI
+     * @param plugin The plugin instance
+     */
     public static void open(@NotNull Player player, @NotNull BuildSystem plugin) {
         Map<Integer, GuiItem> items = new HashMap<>();
         YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
@@ -103,6 +109,14 @@ public final class MainMenu {
         gui.open(player);
     }
 
+    /**
+     * It creates a GUI that allows the player to create a new world
+     *
+     * @param player The player who opened the GUI
+     * @param plugin The plugin instance
+     * @param name The name of the world
+     * @param generator The type of world to create.
+     */
     private static void createWorldMenu(@NotNull Player player, @NotNull BuildSystem plugin, @NotNull String name, @NotNull WorldType generator) {
         Map<Integer, GuiItem> items = new HashMap<>();
         YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
@@ -225,6 +239,14 @@ public final class MainMenu {
         gui.open(player);
     }
 
+    /**
+     * It creates a GUI with a list of worlds, and when you click on a world, it teleports you to it
+     *
+     * @param player The player who is opening the GUI
+     * @param plugin The plugin instance
+     * @param scrollPos The page number.
+     * @param search The search query
+     */
     private static void openWorldList(@NotNull Player player, @NotNull BuildSystem plugin, int scrollPos, String search) {
         RoleManager roleManager = plugin.getRoleManager();
         Map<Integer, GuiItem> items = new HashMap<>();
@@ -336,6 +358,13 @@ public final class MainMenu {
         gui.open(player);
     }
 
+    /**
+     * It creates a GUI with two buttons, one to cancel the deletion and one to confirm it
+     *
+     * @param plugin The plugin instance
+     * @param player The player who opened the GUI
+     * @param data The WorldData object that is being deleted.
+     */
     private static void deleteWorld(@NotNull BuildSystem plugin, @NotNull Player player, @NotNull WorldData data) {
         Map<Integer, GuiItem> items = new HashMap<>();
         YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
@@ -381,6 +410,13 @@ public final class MainMenu {
         gui.open(player);
     }
 
+    /**
+     * It replaces the placeholders in the lore with the actual data
+     *
+     * @param lore The lore of the item.
+     * @param data The WorldData object that contains all the information about the world.
+     * @return A list of strings.
+     */
     private static List<String> replacePholders(@NotNull List<String> lore, @NotNull WorldData data) {
         List<String> newLore = new ArrayList<>();
         for (String s : lore) {

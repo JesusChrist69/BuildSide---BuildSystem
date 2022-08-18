@@ -26,6 +26,13 @@ public class BuildSystemException extends RuntimeException {
         super(format(msg, vars), cause);
     }
 
+    /**
+     * It replaces all occurrences of {i} in the string msg with the string representation of the i-th element of the array
+     * vars
+     *
+     * @param msg The message to be formatted.
+     * @return The method is returning a string that is formatted with the variables passed in.
+     */
     private static String format(String msg, Object... vars) {
         for (int i = 0; i < vars.length; i++) {
             msg = msg.replace("{" + i + "}", vars[i].toString());

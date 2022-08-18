@@ -16,8 +16,12 @@ public class WorldManager {
     private static int taskId;
     public static final Map<World, Long> EMPTY_WORLDS = new HashMap<>();
 
+    /**
+     * It checks every minute if there is a world that is unused for longer than 5 minutes
+     *
+     * @param plugin The plugin instance
+     */
     public static void startChecker(@NotNull BuildSystem plugin) {
-        // checks every minute if there is world that is unused for longer than 5 minutes
         taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             List<World> worlds = new ArrayList<>(EMPTY_WORLDS.keySet());
             for (World w : worlds) {
@@ -31,6 +35,14 @@ public class WorldManager {
         }, 0, 20*60).getTaskId();
     }
 
+    /**
+     * It returns a list of worlds that the player can see
+     *
+     * @param plugin The plugin instance.
+     * @param player The player who is viewing the worlds.
+     * @param search The search string that the player entered.
+     * @return A list of WorldData objects.
+     */
     public List<WorldData> getApplicableWorlds(@NotNull BuildSystem plugin, @NotNull Player player, String search) {
         List<WorldData> data = new ArrayList<>();
         RoleManager roleManager = plugin.getRoleManager();

@@ -69,24 +69,46 @@ public class WorldData {
         return loaded;
     }
 
+    /**
+     * This function toggles the hidden property of the current object.
+     */
     public void toggleHidden() {
         this.hidden = !hidden;
     }
 
+    /**
+     * Toggle the locked variable.
+     */
     public void toggleLock() {
         this.locked = !locked;
     }
 
+    /**
+     * It takes a date, and returns a string in the format of "dd/mm/yyyy hh:mm:ss"
+     *
+     * @return The date and time of the tweet in the format: dd/mm/yyyy hh:mm:ss
+     */
     public String getFormatTime() {
         LocalDateTime d = createdAt.toLocalDateTime();
         return d.getDayOfMonth() + "/" + d.getMonthValue() + "/" + d.getYear() + " " + df(d.getHour()) + ":" + df(d.getMinute()) + ":" + df(d.getSecond());
     }
 
+    /**
+     * If the number is less than 10, add a 0 to the front of it, otherwise just return the number as a string.
+     *
+     * @param a The number to be formatted.
+     * @return The current date and time in the format of "yyyy-MM-dd HH:mm:ss"
+     */
     private String df(int a) {
         if (a < 10) return "0" + a;
         return "" + a;
     }
 
+    /**
+     * It loads a world from a MySQL database, generates it, and teleports the player to the world's spawn location
+     *
+     * @param player The player to teleport
+     */
     public void teleport(@NotNull Player player) {
         if (Bukkit.getWorld(name) != null) {
             player.teleport(Bukkit.getWorld(name).getSpawnLocation());
@@ -120,6 +142,11 @@ public class WorldData {
         }
     }
 
+    /**
+     * It deletes the world
+     *
+     * @param plugin The plugin that is calling the method.
+     */
     public void delete(@NotNull BuildSystem plugin) {
         World w = Bukkit.getWorld(name);
         World a = Bukkit.getWorlds().get(0);
@@ -158,6 +185,11 @@ public class WorldData {
         WORLDS.remove(this);
     }
 
+    /**
+     * It saves the world's hidden and locked status to the database
+     *
+     * @param plugin The plugin instance
+     */
     public void save(@NotNull BuildSystem plugin) {
         plugin.getMySQL().execute(new SqlBuilder.Update("%mysql-table-prefix%" + "world_data")
                 .columns("hidden", "locked")

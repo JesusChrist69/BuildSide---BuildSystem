@@ -2,13 +2,11 @@ package cz.jesuschrist69.buildsystem;
 
 import com.grinderwolf.swm.api.SlimePlugin;
 import com.grinderwolf.swm.api.loaders.SlimeLoader;
-import com.grinderwolf.swm.api.world.SlimeWorld;
 import cz.jesuschrist69.buildsystem.cache.type.FileCache;
 import cz.jesuschrist69.buildsystem.component.BuildSystemCommandExecutor;
 import cz.jesuschrist69.buildsystem.component.BuildSystemListener;
 import cz.jesuschrist69.buildsystem.component.WorldType;
 import cz.jesuschrist69.buildsystem.data.WorldData;
-import cz.jesuschrist69.buildsystem.listeners.WorldListener;
 import cz.jesuschrist69.buildsystem.manager.RoleManager;
 import cz.jesuschrist69.buildsystem.manager.WorldManager;
 import cz.jesuschrist69.buildsystem.mysql.MySQL;
@@ -22,7 +20,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Method;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
@@ -129,14 +126,29 @@ public final class BuildSystem extends JavaPlugin {
         mySQL.disconnect();
     }
 
+    /**
+     * This function returns the file cache.
+     *
+     * @return The fileCache object.
+     */
     public FileCache getFileCache() {
         return fileCache;
     }
 
+    /**
+     * It returns the MySQL object
+     *
+     * @return The MySQL object.
+     */
     public MySQL getMySQL() {
         return mySQL;
     }
 
+    /**
+     * This function returns the roleManager object.
+     *
+     * @return The roleManager object.
+     */
     public RoleManager getRoleManager() {
         return roleManager;
     }

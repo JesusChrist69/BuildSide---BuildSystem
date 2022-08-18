@@ -8,6 +8,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class RoleCache extends LocalCache<String, RoleManager.RoleUser> {
 
+    /**
+     * It loads the settings.yml file, loops through all the keys in the ROLES section, and creates a RoleUser object for
+     * each key
+     *
+     * @param plugin The plugin instance.
+     */
     public void init(@NotNull BuildSystem plugin) {
         YamlConfiguration settingsFile = plugin.getFileCache().get("settings.yml");
         for (String key : settingsFile.getConfigurationSection("ROLES").getKeys(false)) {

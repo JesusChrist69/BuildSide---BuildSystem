@@ -21,6 +21,12 @@ public final class RoleManager {
         roleCache.init(plugin);
     }
 
+    /**
+     * Get all roles that the player has permission to use.
+     *
+     * @param player The player to get the roles for.
+     * @return A list of RoleUser objects.
+     */
     public List<RoleUser> getUserRoles(@NotNull Player player) {
         List<RoleUser> roles = new ArrayList<>();
         for (RoleUser role : roleCache.getAll()) {
@@ -31,6 +37,13 @@ public final class RoleManager {
         return roles;
     }
 
+    /**
+     * If the player has a role that allows them to do the permission, return true.
+     *
+     * @param player The player to check the permission for.
+     * @param permission The permission you want to check.
+     * @return A boolean value.
+     */
     public boolean hasPermission(@NotNull Player player, @NotNull Permission permission) {
         List<RoleUser> roles = getUserRoles(player);
         for (RoleUser role : roles) {
