@@ -1,0 +1,71 @@
+ROLES:
+  # You can create as many roles as you want with different permission combinations
+  # If you do not provide some option(ex. ALLOW-SEARCH) then it will be automatically set to its default value
+  # You can see default values in TRIAL role
+  # There are 3 default roles to show you how it works
+  TRIAL:
+    # Player will need this permission to give him access to this role
+    # default: buildsystem.<rolename>
+    PERMISSION: 'buildsystem.trial'
+    # List of world types that can be created by this role
+    # Currently supported world types are: NONE (player can not create world),
+    # EMPTY (void world), FLAT (flat world)
+    # default: NONE
+    ALLOWED-WORLD-TYPES:
+      - EMPTY
+      - FLAT
+    # Allow player to search through worlds that he can see (affected by SEE-ALL-WORLDS option)
+    # If set to true: Player will see compass in his menu which will allow him to search through his worlds (or ALL worlds if SEE-ALL-WORLDS is set to true)
+    # default: true
+    ALLOW-SEARCH: true
+    # Allow player to teleport on worlds that he can see (affected by SEE-ALL-WORLDS option)
+    # If set to true: Player will be able to teleport on world by clicking on it
+    # default: true
+    WORLD-TP: true
+    # Allow player to see worlds that are hidden
+    # If set to true: Player will be able to scroll through every world that is stored by this plugin
+    # default: false
+    SEE-ALL-WORLDS: false
+    # Allow player to delete worlds of other players
+    # If set to true: Player will be able to delete world by right-clicking on it (confirmation will be needed)
+    # default: false
+    DELETE-WORLDS: false
+    # Allow player to lock/unlock worlds using command: /lock and /unlock
+    # If set to true: Player will be able to lock and unlock worlds
+    # Players without WORLD-LOCK permission will not be able to connect to locked worlds
+    # default: false
+    WORLD-LOCK: false
+    # Allow player to hide/show worlds using command: /hide and /show
+    # If set to true: Player will be able to hide and show worlds
+    # Players without WORLD-HIDE permission will not be able to see this world
+    # default: false
+    WORLD-HIDE: false
+
+  # role names must be unique
+  NORMAL:
+    PERMISSION: 'buildsystem.normal'
+    ALLOWED-WORLD-TYPES:
+      - EMPTY
+      - FLAT
+    ALLOW-SEARCH: true
+    WORLD-TP: true
+
+    SEE-ALL-WORLDS: false
+    DELETE-WORLDS: true
+
+    WORLD-LOCK: false
+    WORLD-HIDE: false
+
+  MANAGER:
+    PERMISSION: 'buildsystem.manager'
+    ALLOWED-WORLD-TYPES:
+      - EMPTY
+      - FLAT
+    ALLOW-SEARCH: true
+    WORLD-TP: true
+
+    SEE-ALL-WORLDS: true
+    DELETE-WORLDS: true
+
+    WORLD-LOCK: true
+    WORLD-HIDE: true

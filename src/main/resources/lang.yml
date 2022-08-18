@@ -1,0 +1,187 @@
+MESSAGES:
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: NO-PERM: []
+  NO-PERM:
+    - '&7[&c!&7] &eSorry, but you are not allowed to use this command'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: TELEPORTED: []
+  # Available placeholders: %world-name% - name of world that player teleported to
+  TELEPORTED:
+    - '&7[&a*&7] &bTeleported to world &f%world-name%'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: NO-TELEPORT-LOCK: []
+  NO-TELEPORT-LOCK:
+    - '&7(&c!&7) &cYou are not allowed to teleport into this world because it is locked.'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: WORLD-DELETE: []
+  # Available plaeholders: %world-name% - name of world that was deleted
+  WORLD-DELETE:
+    - '&7[&c-&7] &eYou have &cremoved &eworld &6%world-name%'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: WORLD-LOCKED: []
+  # Available plaeholders: %world-name% - name of world that was locked
+  WORLD-LOCKED:
+    - '&7[&c/&7] World &f%world-name% &7is now locked'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: WORLD-HIDDEN: []
+  # Available plaeholders: %world-name% - name of world that was hidden
+  WORLD-HIDDEN:
+    - '&7[&cX&7] World &f%world-name% &7is now hidden from all players'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: WORLD-SHOWN: []
+  # Available plaeholders: %world-name% - name of world that was shown
+  WORLD-SHOWN:
+    - '&7[&aX&7] &aWorld &f%world-name% &ais now visible to all players'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: WORLD-UNLOCKED: []
+  # Available plaeholders: %world-name% - name of world that was unlocked
+  WORLD-UNLOCKED:
+    - '&7[&a/&7] &aYou have unlocked world &f%world-name%'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: ALREADY-HIDDEN: []
+  ALREADY-HIDDEN:
+    - '&7[&c!&7] &6This world is already hidden'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: ALREADY-VISIBLE: []
+  ALREADY-VISIBLE:
+    - '&7[&c!&7] &6This world is already visible'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: ALREADY-LOCKED: []
+  ALREADY-LOCKED:
+    - '&7[&c!&7] &6This world is already locked'
+  # You can add as many lines as you want to this message
+  # If you want to disable this message just do this: ALREADY-UNLOCKED: []
+  ALREADY-UNLOCKED:
+    - '&7[&c!&7] &6This world is already unlocked'
+
+
+MENUS:
+  MAIN:
+    TITLE: '&2&lBuild&f&lSystem'
+
+    CREATE-ITEM:
+      NAME: '&aCreate New World'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to create new world'
+
+    SEARCH-ITEM:
+      NAME: '&bWorld Search...'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to open world search'
+
+    ALL-WORLDS:
+      NAME: '&fShow all worlds'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to see all worlds'
+
+    CLOSE-BUTTON:
+      NAME: '&cClose Menu'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to close this menu'
+
+  CREATE:
+    TITLE: '&aCreate new world...'
+
+    EMPTY-GENERATOR:
+      NAME: '&aEmpty World'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to generate empty world'
+
+    FLAT-GENERATOR:
+      NAME: '&aFlat World'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to generate flat world'
+
+    BACK-BUTTON:
+      NAME: '&cCancel world creation'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to open main menu'
+
+    WORLD-NAME:
+      NAME: '&eWorld Name: &6%world-name%'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to change world name'
+
+    CREATE-BTN:
+      NAME: '&aCreate World'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to create world'
+
+    CREATE-BTN-DISABLED:
+      NAME: '&cCan not create world!'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7(&4!&7) &cYou need to select generator and'
+        - '&cprovide world name before creating world'
+
+  ALL-WORLD-LIST:
+    TITLE: '&bListing worlds..'
+
+    BACK-BUTTON:
+      NAME: '&cGo Back'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to open Main Menu'
+
+    NEXT-PAGE-BUTTON:
+      NAME: '&aScroll Down'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to scroll 1 row down'
+
+    PREVIOUS-PAGE-BUTTON:
+      NAME: '&eScroll Up'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to scroll 1 row up'
+
+    WORLD:
+      NAME: "&f%world-owner%&7's world"
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7Created: &f%world-created%'
+        - '&7Owner: &f%world-owner%'
+        - '&7Name: &f%world-name%'
+        - ''
+        - '&7-> &fLeft-Click to &dteleport'
+        - '&7-> &fRight-Click to &cdelete'
+
+  DELETE:
+    TITLE: '&cDeleting world...'
+
+    CANCEL-BUTTON:
+      NAME: '&cCancel'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to open Main Menu'
+
+    CONFIRM-BUTTON:
+      NAME: '&aConfirm'
+      # You can add as many lines to lore as you want
+      LORE:
+        - ''
+        - '&7-> &fClick to &cdelete &fworld &7%world-name%'
