@@ -218,7 +218,7 @@ public class SqlBuilder {
         }
 
         /**
-         * > It builds a SQL query string from the various parts of the query
+         * > This method builds a SQL query string from the various parts of the query
          *
          * @return A string
          */

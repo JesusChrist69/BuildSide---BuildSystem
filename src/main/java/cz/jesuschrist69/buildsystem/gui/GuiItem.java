@@ -116,7 +116,7 @@ public class GuiItem {
         }
 
         /**
-         * It takes a list of strings, colors them, and sets them as the lore of the item
+         * This function takes a list of strings, colors them, and sets them as the lore of the item
          *
          * @param lore The lore to set.
          * @return The builder object.
@@ -226,7 +226,7 @@ public class GuiItem {
         }
 
         /**
-         * It removes a line from the lore of the item
+         * This function removes a line from the lore of the item
          *
          * @param line The line to remove.
          * @return The builder object.
@@ -245,9 +245,9 @@ public class GuiItem {
         }
 
         /**
-         * Sets the unbreakable state of the item.
+         * This function sets the unbreakable state of the item.
          *
-         * @param unbreakable Whether or not the item is unbreakable.
+         * @param unbreakable Whether the item is unbreakable.
          * @return The builder object.
          */
         public Builder unbreakable(boolean unbreakable) {
@@ -259,7 +259,7 @@ public class GuiItem {
         }
 
         /**
-         * It returns a new GuiItem object with the values of the GuiItemBuilder object
+         * This method returns a new GuiItem object with the values of the GuiItemBuilder object
          *
          * @return A new GuiItem object.
          */

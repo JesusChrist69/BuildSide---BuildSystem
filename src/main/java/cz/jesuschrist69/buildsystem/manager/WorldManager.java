@@ -17,7 +17,8 @@ public class WorldManager {
     public static final Map<World, Long> EMPTY_WORLDS = new HashMap<>();
 
     /**
-     * It checks every minute if there is a world that is unused for longer than 5 minutes
+     * This function checks every minute if there is a world that is unused for longer than 5 minutes.
+     * If there is world that is unused for longer than 5 minutes then we unload that world.
      *
      * @param plugin The plugin instance
      */
@@ -36,7 +37,7 @@ public class WorldManager {
     }
 
     /**
-     * It returns a list of worlds that the player can see
+     * This method returns a list of worlds that the player can see
      *
      * @param plugin The plugin instance.
      * @param player The player who is viewing the worlds.

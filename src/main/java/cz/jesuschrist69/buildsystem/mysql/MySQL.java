@@ -50,7 +50,7 @@ public class MySQL {
     }
 
     /**
-     * "If we're not connected, connect, then execute the query."
+     * "If we're not connected, try to connect, then execute the query."
      *
      * The first thing we do is check if we're connected. If we're not, we try to connect. If we can't connect, we throw a
      * BuildSystemException with more details

@@ -4,9 +4,11 @@ import cz.jesuschrist69.buildsystem.component.BuildSystemListener;
 import cz.jesuschrist69.buildsystem.gui.Gui;
 import cz.jesuschrist69.buildsystem.gui.GuiItem;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 
-public class GuiListener implements BuildSystemListener {
+@BuildSystemListener
+public class GuiListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {

@@ -26,7 +26,7 @@ public class FileUtils {
     private static String jarPath;
 
     /**
-     * It loads a file from the plugin's resources folder if it doesn't exist in the plugin's data folder
+     * This method loads a file from the plugin's resources folder if it doesn't exist in the plugin's data folder
      *
      * @param instance {@link BuildSystem} The instance of plugin.
      * @param path     The path to the file.
@@ -65,45 +65,6 @@ public class FileUtils {
      */
     public YamlConfiguration loadFile(@NotNull BuildSystem instance, @NotNull String fileName) {
         return loadFile(instance, instance.getDataFolder().getAbsolutePath(), fileName);
-    }
-
-    /**
-     * It loads all classes from the jar file of the BuildSystem instance and returns all classes that implement the given
-     * interface
-     *
-     * @param instance       The instance of the BuildSystem class.
-     * @param interfaceClass The interface that the classes must implement.
-     * @return {@link Set} A set of classes that implement the given interface.
-     */
-    public Set<Class<?>> getClassesForInt(@NotNull BuildSystem instance, @NotNull Class<?> interfaceClass) {
-        if (!interfaceClass.isInterface()) {
-            throw new BuildSystemException("Listener interface must be an interface.");
-        }
-        if (jarPath == null) {
-            jarPath = findJarPath(instance);
-        }
-        Set<Class<?>> classes = new HashSet<>();
-        try (JarFile jar = new JarFile(jarPath)) {
-            Enumeration<JarEntry> entries = jar.entries();
-            while (entries.hasMoreElements()) {
-                JarEntry entry = entries.nextElement();
-                String name = entry.getName();
-                if (name.endsWith(".class") && name.startsWith("cz/jesuschrist69") &&
-                        !name.contains("cz/jesuschrist69/buildsystem/shade")) {
-                    try {
-                        Class<?> c = Class.forName(name.replace("/", ".").substring(0, name.length() - 6));
-                        if (interfaceClass.isAssignableFrom(c) && !c.isInterface()) {
-                            classes.add(c);
-                        }
-                    } catch (ClassNotFoundException e) {
-                        throw new BuildSystemException("Failed to load class: {0}", name, e);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new BuildSystemException("Failed to load classes from jar.", e);
-        }
-        return classes;
     }
 
     /**

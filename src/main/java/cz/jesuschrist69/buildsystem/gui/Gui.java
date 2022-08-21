@@ -74,7 +74,7 @@ public class Gui implements InventoryHolder {
         }
 
         /**
-         * It copies the values of the Gui object passed into the builder
+         * This function copies the values of the Gui object passed into the builder
          *
          * @param gui The gui you want to copy
          * @return A new instance of the Builder class.
@@ -100,7 +100,7 @@ public class Gui implements InventoryHolder {
         }
 
         /**
-         * It sets the item in the specified slot to the specified item
+         * This function sets the item in the specified slot to the specified item
          *
          * @param slot The slot of the item.
          * @param item The item to be set in the slot
@@ -205,7 +205,7 @@ public class Gui implements InventoryHolder {
     }
 
     /**
-     * It updates the item in the specified slot with the new item
+     * This function updates the item in the specified slot with the new item
      *
      * @param slot The slot you want to update.
      * @param newItem The new item to be placed in the slot.
@@ -216,7 +216,7 @@ public class Gui implements InventoryHolder {
     }
 
     /**
-     * It removes an item from the inventory
+     * This function removes an item from the inventory
      *
      * @param slot The slot you want to remove the item from.
      */
@@ -226,7 +226,7 @@ public class Gui implements InventoryHolder {
     }
 
     /**
-     * It updates the title of the inventory and then creates a new inventory
+     * This function updates the title of the inventory and then creates a new inventory
      *
      * @param title The title of the inventory.
      */
@@ -246,7 +246,7 @@ public class Gui implements InventoryHolder {
     }
 
     /**
-     * It creates a new inventory, closes the old one, and opens the new one for all viewers
+     * This function creates a new inventory, closes the old one, and opens the new one for all viewers
      */
     private void createNewInv() {
         List<HumanEntity> viwers = new ArrayList<>(inventory.getViewers());
@@ -267,7 +267,7 @@ public class Gui implements InventoryHolder {
     }
 
     /**
-     * It clears the inventory, then adds all the items in the items HashMap to the inventory
+     * This function clears the inventory, then adds all the items in the items HashMap to the inventory
      */
     public void updateItems() {
         inventory.clear();

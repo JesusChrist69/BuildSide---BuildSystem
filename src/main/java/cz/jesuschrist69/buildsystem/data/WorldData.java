@@ -84,7 +84,7 @@ public class WorldData {
     }
 
     /**
-     * It takes a date, and returns a string in the format of "dd/mm/yyyy hh:mm:ss"
+     * This function takes a date, and returns a string in the format of "dd/mm/yyyy hh:mm:ss"
      *
      * @return The date and time of the tweet in the format: dd/mm/yyyy hh:mm:ss
      */
@@ -105,7 +105,7 @@ public class WorldData {
     }
 
     /**
-     * It loads a world from a MySQL database, generates it, and teleports the player to the world's spawn location
+     * This function loads a world from a MySQL database, generates it, and teleports the player to the world's spawn location
      *
      * @param player The player to teleport
      */
@@ -143,7 +143,7 @@ public class WorldData {
     }
 
     /**
-     * It deletes the world
+     * This function deletes the world
      *
      * @param plugin The plugin that is calling the method.
      */
@@ -186,7 +186,7 @@ public class WorldData {
     }
 
     /**
-     * It saves the world's hidden and locked status to the database
+     * This function saves the world's hidden and locked status to the database
      *
      * @param plugin The plugin instance
      */

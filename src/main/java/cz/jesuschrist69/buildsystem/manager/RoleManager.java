@@ -29,7 +29,7 @@ public final class RoleManager {
      */
     public List<RoleUser> getUserRoles(@NotNull Player player) {
         List<RoleUser> roles = new ArrayList<>();
-        for (RoleUser role : roleCache.getAll()) {
+        for (RoleUser role : roleCache.values()) {
             if (player.hasPermission(role.getRequiredPermission())) {
                 roles.add(role);
             }

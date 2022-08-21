@@ -11,47 +11,49 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class ShowCommand implements BuildSystemCommandExecutor {
+@BuildSystemCommandExecutor
+public class ShowCommand extends Command {
 
     private BuildSystem plugin;
 
+    public ShowCommand() {
+        super("show", "", "/show - unhide current world", new ArrayList<>());
+    }
+
     /**
-     * "This function is called when the plugin is enabled, and it sets the command executor for the command 'show' to this
-     * class."
+     * This function is called when the plugin is enabled.
      *
-     * The @NotNull annotation is a Java annotation that tells the compiler that the BuildSystem parameter will never be
-     * null
-     *
-     * @param plugin The BuildSystem plugin instance.
+     * @param plugin The plugin instance.
      */
-    @Override
     public void init(@NotNull BuildSystem plugin) {
         this.plugin = plugin;
-        plugin.getCommand("show").setExecutor(this);
     }
 
     /**
      * If the player has permission, toggle the hidden state of the world they're in
      *
-     * @param cs The CommandSender, which is the player who sent the command.
-     * @param cmd The command that was executed.
-     * @param label The command label.
-     * @param args The arguments that the player typed in.
+     * @param cs The CommandSender who executed the command.
+     * @param commandLabel The command label that was used to execute the command.
+     * @param args The arguments passed to the command.
      * @return A boolean
      */
     @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender cs, String commandLabel, String[] args) {
         if (cs instanceof Player) {
             Player player = (Player) cs;
-            YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
+            Optional<YamlConfiguration> langFile = plugin.getFileCache().get("lang.yml");
             if (!plugin.getRoleManager().hasPermission(player, RoleManager.Permission.HIDE_WORLDS)) {
-                List<String> message = lang.getStringList("MESSAGES.NO-PERM");
-                if (message.isEmpty()) return true;
-                for (String s : message) {
-                    player.sendMessage(ColorUtils.colorize(s));
-                }
+                langFile.ifPresent(lang -> {
+                    List<String> message = lang.getStringList("MESSAGES.NO-PERM");
+                    if (message == null || message.isEmpty()) return;
+                    for (String s : message) {
+                        player.sendMessage(ColorUtils.colorize(s));
+                    }
+                });
                 return true;
             }
 
@@ -59,17 +61,25 @@ public class ShowCommand implements BuildSystemCommandExecutor {
             for (WorldData wd : WorldData.getWORLDS()) {
                 if (wd.getName().equalsIgnoreCase(world)) {
                     if (!wd.isHidden()) {
-                        for (String s : lang.getStringList("MESSAGES.ALREADY-VISIBLE")) {
-                            player.sendMessage(ColorUtils.colorize(s));
-                        }
+                        langFile.ifPresent(lang -> {
+                            List<String> message = lang.getStringList("MESSAGES.ALREADY-VISIBLE");
+                            if (message == null || message.isEmpty()) return;
+                            for (String s : message) {
+                                player.sendMessage(ColorUtils.colorize(s));
+                            }
+                        });
                         break;
                     }
                     wd.toggleHidden();
                     wd.save(plugin);
-                    for (String s : lang.getStringList("MESSAGES.WORLD-SHOWN")) {
-                        s = s.replace("%world-name%", world);
-                        player.sendMessage(ColorUtils.colorize(s));
-                    }
+                    langFile.ifPresent(lang -> {
+                        List<String> message = lang.getStringList("MESSAGES.WORLD-SHOWN");
+                        if (message == null || message.isEmpty()) return;
+                        for (String s : message) {
+                            s = s.replace("%world-name%", world);
+                            player.sendMessage(ColorUtils.colorize(s));
+                        }
+                    });
                     break;
                 }
             }

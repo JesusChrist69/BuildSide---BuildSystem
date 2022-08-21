@@ -14,15 +14,20 @@ import cz.jesuschrist69.buildsystem.mysql.MysqlCredentials;
 import cz.jesuschrist69.buildsystem.mysql.builder.SqlBuilder;
 import cz.jesuschrist69.buildsystem.utils.FileUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -39,21 +44,29 @@ public final class BuildSystem extends JavaPlugin {
         fileCache.init(this);
 
         Logger logger = getLogger();
-
-        YamlConfiguration creds = fileCache.get("credentials.yml");
-        mySQL = new MySQL(new MysqlCredentials(
-                creds.getString("DATABASE.REQUIRED.HOST"),
-                creds.getInt("DATABASE.REQUIRED.PORT"),
-                creds.getString("DATABASE.REQUIRED.USERNAME"),
-                creds.getString("DATABASE.REQUIRED.PASSWORD"),
-                creds.getString("DATABASE.REQUIRED.DATABASE"),
-                creds.getString("DATABASE.OPTIONAL.TABLE-PREFIX"),
-                creds.getBoolean("DATABASE.OPTIONAL.AUTO-RECONNECT")
-        ));
-
         PluginManager pm = Bukkit.getPluginManager();
 
-        if (!mySQL.isConnected()) {
+        Optional<YamlConfiguration> credsFile = fileCache.get("credentials.yml");
+        credsFile.ifPresent(creds -> {
+            try {
+                mySQL = new MySQL(new MysqlCredentials(
+                        creds.getString("DATABASE.REQUIRED.HOST"),
+                        creds.getInt("DATABASE.REQUIRED.PORT"),
+                        creds.getString("DATABASE.REQUIRED.USERNAME"),
+                        creds.getString("DATABASE.REQUIRED.PASSWORD"),
+                        creds.getString("DATABASE.REQUIRED.DATABASE"),
+                        creds.getString("DATABASE.OPTIONAL.TABLE-PREFIX"),
+                        creds.getBoolean("DATABASE.OPTIONAL.AUTO-RECONNECT")
+                ));
+            } catch (Exception e) {
+                getLogger().warning("Failed to connect to MySQL database. " +
+                        "Please fill all required fields or check if you filled them with correct values. " +
+                        "Plugin will now disable as it requires database connection.");
+                pm.disablePlugin(this);
+            }
+        });
+
+        if (mySQL == null || !mySQL.isConnected()) {
             logger.warning("Failed to connect to mysql database, disabling plugin");
             pm.disablePlugin(this);
             return;
@@ -79,7 +92,7 @@ public final class BuildSystem extends JavaPlugin {
                 for (WorldData wd : WorldData.getWORLDS()) {
                     if (!worlds.contains(wd.getName())) {
                         mySQL.execute(new SqlBuilder.Delete("%mysql-table-prefix%" + "world_data")
-                                .where("name = '" + wd.getName()+"'")
+                                .where("name = '" + wd.getName() + "'")
                                 .build());
                     }
                 }
@@ -89,9 +102,11 @@ public final class BuildSystem extends JavaPlugin {
             }
         });
 
+        Reflections reflections = new Reflections("cz.jesuschrist69.buildsystem");
+
         // Register all listeners
         try {
-            Set<Class<?>> listeners = FileUtils.getClassesForInt(this, BuildSystemListener.class);
+            Set<Class<?>> listeners = reflections.getTypesAnnotatedWith(BuildSystemListener.class);
             for (Class<?> clazz : listeners) {
                 pm.registerEvents((Listener) clazz.newInstance(), this);
             }
@@ -103,11 +118,18 @@ public final class BuildSystem extends JavaPlugin {
 
         // Register all commands
         try {
-            Set<Class<?>> commands = FileUtils.getClassesForInt(this, BuildSystemCommandExecutor.class);
-            for (Class<?> clazz : commands) {
-                Object o = clazz.newInstance();
-                Method m = o.getClass().getDeclaredMethod("init", BuildSystem.class);
-                m.invoke(o, this);
+            Set<Class<?>> commands = reflections.getTypesAnnotatedWith(BuildSystemCommandExecutor.class);
+            Field f = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
+            f.setAccessible(true);
+            Object commandMapObject = f.get(Bukkit.getPluginManager());
+            if (commandMapObject instanceof CommandMap) {
+                CommandMap commandMap = (CommandMap) commandMapObject;
+                for (Class<?> clazz : commands) {
+                    Object o = clazz.newInstance();
+                    Method m = o.getClass().getDeclaredMethod("init", BuildSystem.class);
+                    m.invoke(o, this);
+                    commandMap.register(this.getName(), (Command) o);
+                }
             }
         } catch (Exception e) {
             getLogger().warning("Failed to register commands, disabling plugin");
@@ -127,7 +149,7 @@ public final class BuildSystem extends JavaPlugin {
     }
 
     /**
-     * This function returns the file cache.
+     * This method returns the file cache object.
      *
      * @return The fileCache object.
      */
@@ -136,7 +158,7 @@ public final class BuildSystem extends JavaPlugin {
     }
 
     /**
-     * It returns the MySQL object
+     * This method returns the MySQL object
      *
      * @return The MySQL object.
      */
@@ -145,7 +167,7 @@ public final class BuildSystem extends JavaPlugin {
     }
 
     /**
-     * This function returns the roleManager object.
+     * This method returns the roleManager object.
      *
      * @return The roleManager object.
      */

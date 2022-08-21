@@ -27,7 +27,7 @@ public class BuildSystemException extends RuntimeException {
     }
 
     /**
-     * It replaces all occurrences of {i} in the string msg with the string representation of the i-th element of the array
+     * This function replaces all occurrences of {i} in the string msg with the string representation of the i-th element of the array
      * vars
      *
      * @param msg The message to be formatted.

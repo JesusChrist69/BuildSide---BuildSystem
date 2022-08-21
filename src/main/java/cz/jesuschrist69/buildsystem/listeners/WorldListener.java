@@ -4,12 +4,14 @@ import cz.jesuschrist69.buildsystem.component.BuildSystemListener;
 import cz.jesuschrist69.buildsystem.manager.WorldManager;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class WorldListener implements BuildSystemListener {
+@BuildSystemListener
+public class WorldListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {

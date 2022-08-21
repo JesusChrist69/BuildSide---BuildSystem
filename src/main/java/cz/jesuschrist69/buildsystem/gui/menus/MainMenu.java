@@ -30,10 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class MainMenu {
 
@@ -42,14 +39,18 @@ public final class MainMenu {
     }
 
     /**
-     * It creates a GUI with a bunch of items in it
+     * This method creates a GUI with a bunch of items in it
      *
      * @param player The player who is opening the GUI
      * @param plugin The plugin instance
      */
     public static void open(@NotNull Player player, @NotNull BuildSystem plugin) {
         Map<Integer, GuiItem> items = new HashMap<>();
-        YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
+        Optional<YamlConfiguration> langFile = plugin.getFileCache().get("lang.yml");
+        if (!langFile.isPresent()) {
+            throw new BuildSystemException("Could not open main menu for player {0} because file lang.yml is missing!", player.getName());
+        }
+        YamlConfiguration lang = langFile.get();
 
         for (int i = 0; i < 36; i++) {
             items.put(i, GuiItem.create().withItem(new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7))
@@ -110,7 +111,7 @@ public final class MainMenu {
     }
 
     /**
-     * It creates a GUI that allows the player to create a new world
+     * This method creates a GUI that allows the player to create a new world
      *
      * @param player The player who opened the GUI
      * @param plugin The plugin instance
@@ -119,7 +120,11 @@ public final class MainMenu {
      */
     private static void createWorldMenu(@NotNull Player player, @NotNull BuildSystem plugin, @NotNull String name, @NotNull WorldType generator) {
         Map<Integer, GuiItem> items = new HashMap<>();
-        YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
+        Optional<YamlConfiguration> langFile = plugin.getFileCache().get("lang.yml");
+        if (!langFile.isPresent()) {
+            throw new BuildSystemException("Could not open create world menu for player {0} because file lang.yml is missing!", player.getName());
+        }
+        YamlConfiguration lang = langFile.get();
         SlimePlugin slimePlugin = (SlimePlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager");
         try {
             if (slimePlugin.getLoader("mysql").worldExists(name)) {
@@ -240,7 +245,7 @@ public final class MainMenu {
     }
 
     /**
-     * It creates a GUI with a list of worlds, and when you click on a world, it teleports you to it
+     * This method creates a GUI with a list of worlds, and when you click on a world, it teleports you to it
      *
      * @param player The player who is opening the GUI
      * @param plugin The plugin instance
@@ -250,7 +255,11 @@ public final class MainMenu {
     private static void openWorldList(@NotNull Player player, @NotNull BuildSystem plugin, int scrollPos, String search) {
         RoleManager roleManager = plugin.getRoleManager();
         Map<Integer, GuiItem> items = new HashMap<>();
-        YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
+        Optional<YamlConfiguration> langFile = plugin.getFileCache().get("lang.yml");
+        if (!langFile.isPresent()) {
+            throw new BuildSystemException("Could not open world list menu for player {0} because file lang.yml is missing!", player.getName());
+        }
+        YamlConfiguration lang = langFile.get();
         List<WorldData> worlds = WorldManager.getApplicableWorlds(plugin, player, search);
 
         if (scrollPos > 0) {
@@ -359,7 +368,7 @@ public final class MainMenu {
     }
 
     /**
-     * It creates a GUI with two buttons, one to cancel the deletion and one to confirm it
+     * This method creates a GUI with two buttons, one to cancel the deletion and one to confirm it
      *
      * @param plugin The plugin instance
      * @param player The player who opened the GUI
@@ -367,7 +376,11 @@ public final class MainMenu {
      */
     private static void deleteWorld(@NotNull BuildSystem plugin, @NotNull Player player, @NotNull WorldData data) {
         Map<Integer, GuiItem> items = new HashMap<>();
-        YamlConfiguration lang = plugin.getFileCache().get("lang.yml");
+        Optional<YamlConfiguration> langFile = plugin.getFileCache().get("lang.yml");
+        if (!langFile.isPresent()) {
+            throw new BuildSystemException("Could not open delete world menu for player {0} because file lang.yml is missing!", player.getName());
+        }
+        YamlConfiguration lang = langFile.get();
 
         items.put(11, GuiItem.create()
                 .withItem(new ItemStack(Material.BARRIER))
@@ -411,7 +424,7 @@ public final class MainMenu {
     }
 
     /**
-     * It replaces the placeholders in the lore with the actual data
+     * This function replaces the placeholders in the lore with the actual data
      *
      * @param lore The lore of the item.
      * @param data The WorldData object that contains all the information about the world.
