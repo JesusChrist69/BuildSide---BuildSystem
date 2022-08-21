@@ -6,15 +6,3 @@ depend: [ SlimeWorldManager ]
 authors: [ JesusChrist69 ]
 description: BuildSystem for builders
 website: www.davidmalich.eu
-commands:
-  buildsystem:
-    usage: /buildsystem
-    aliases: [ bs, bsystem, bsys ]
-  hide:
-    usage: /hide
-  show:
-    usage: /show
-  lock:
-    usage: /lock
-  unlock:
-    usage: /unlock
